@@ -1,2 +1,5 @@
 Django==1.11.12
+mpmath==1.0.0
+numpy==1.14.2
 pytz==2018.4
+sympy==1.1.1
