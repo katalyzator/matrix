@@ -1,0 +1,84 @@
+<script>
+    function generate() {
+
+
+
+        var rowCount = document.getElementById('rowCount').value;
+        {#	var colCount = document.getElementById('colCount').value;#}
+        var matrix_form = document.createElement('form');
+        var tbl = document.createElement('table');
+        {#	var tbl2 = document.createElement('table');#}
+        tbl.insertRow(-1);
+        {#	tbl2.insertRow(-1);#}
+        for (var j = 0; j <= rowCount; j++)    tbl.tBodies[0].rows[0].insertCell(-1).innerHTML = j || ' ';
+
+        {#	tbl2.tBodies[0].rows[0].insertCell(-1).innerHTML = 'B'||' ';	#}
+        {#		#}
+        {#	for (var i=1; i<=rowCount; i++)#}
+        {#	{#}
+        {#		tbl2.insertRow(-1).insertCell(-1).innerHTML = i;#}
+        {#		for (var j=1; j<=1; j++)	#}
+        {#		{#}
+        {#			var input = document.createElement('input');#}
+        {#			input.id=input.name='l_'+i+'_'+j;#}
+        {#			input.size = "5";#}
+        {#			tbl2.tBodies[0].rows[i].insertCell(-1).appendChild(input);#}
+        {#		}#}
+        {#	}#}
+
+        for (var i = 1; i <= rowCount; i++) {
+            tbl.insertRow(-1).insertCell(-1).innerHTML = i;
+            for (var j = 1; j <= rowCount; j++) {
+                var input = document.createElement('input');
+                input.id = input.name = 'm_' + i + '_' + j;
+                input.size = "5";
+                tbl.tBodies[0].rows[i].insertCell(-1).appendChild(input);
+            }
+        }
+
+
+
+        matrix_form.appendChild(tbl);
+        matrix_form.method = 'POST';
+        matrix_form.action = '{% url 'index_view' %}';
+        matrix_form.className = 'matrix-form';
+
+        var input_form = document.createElement("input");
+        input_form.type = "submit";
+        input_form.value = "calculate det";
+        input_form.className = "css-class-name"; // set the CSS class
+        matrix_form.append(input_form); // put it into the DOM
+        document.body.append(matrix_form);
+        var hiden_input = document.createElement("input");
+        hiden_input.type = 'hidden';
+        hiden_input.name = 'row_length';
+        hiden_input.value = rowCount.toString();
+        matrix_form.append(hiden_input);
+
+        {#        matrix_form.submit();#}
+        {#        tbl.append('<input type="submit" name="field_name" value="submit" />');#}
+        {#	document.body.appendChild(tbl2);#}
+
+
+    }
+
+
+
+    function manipulate() {
+        generate();
+    }
+
+
+</script>
+<input id='rowCount' type='text' value='4'/><br/>
+{#colCount: <input id='colCount' type='text' value='5' /><br />#}
+<button onclick="manipulate()" style="top: 50px;">generate</button>
+<br>
+
+
+
+<style type="text/css">
+    table {
+        float: left;
+    }
+</style>
