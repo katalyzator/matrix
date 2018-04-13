@@ -20,7 +20,8 @@ def index_view(request):
             matrix = []
             row_count = request.POST.get('row_length')
             for i in range(1, int(row_count) + 1):
-                matrix.append([int(request.POST.get('m_' + str(i) + '_' + str(j))) for j in range(1, int(row_count) + 1)], )
+                matrix.append(
+                    [int(request.POST.get('m_' + str(i) + '_' + str(j))) for j in range(1, int(row_count) + 1)], )
 
             for item in matrix:
                 print item
