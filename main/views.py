@@ -9,18 +9,23 @@ from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
+import numpy as np
+import sympy as sp
+
 
 @csrf_exempt
 def index_view(request):
     if request.method == 'POST':
         try:
-
+            matrix = []
             row_count = request.POST.get('row_length')
-            for i in range(1, int(row_count)):
-                for j in range(1, int(row_count)):
-                    print request.POST.get('m_' + str(i) + '_' + str(j))
+            for i in range(1, int(row_count) + 1):
+                matrix.append([int(request.POST.get('m_' + str(i) + '_' + str(j))) for j in range(1, int(row_count) + 1)], )
 
-            print row_count
+            for item in matrix:
+                print item
+
+            print np.linalg.det(matrix)
 
         except Exception as exc:
 
