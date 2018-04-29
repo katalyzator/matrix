@@ -40,3 +40,10 @@ def index_view(request):
     template = 'index.html'
 
     return render(request, template, context)
+
+
+def matrix_view(request):
+    context = {}
+    template = 'matrix.html'
+
+    return render(request, template, context)

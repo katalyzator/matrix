@@ -1,0 +1,80 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div id="matrix">
+    <form>
+        <label for="min">(K):</label>
+        <input type="text" name="min" id="min" placeholder="0" value=""/>
+        <hr/>
+        <label for="size">(N):</label>
+        <input type="text" name="size" id="size" placeholder="5" value=""/>
+        <hr/>
+        <input type="button" onclick="Matrix()" value="Сгенерировать матрицу"/>
+    </form>
+
+
+</div>
+<div id="result">
+    <form id="matrix_id">
+
+    </form>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    function Matrix() {
+        var l = document.getElementById('min').value || 3;
+        var n = document.getElementById('size').value || 3;
+        var block = document.getElementById('matrix_id');
+        var arr = Create_mass(n, n);
+
+        if (block.hasChildNodes()) {
+            block.innerHTML = "";
+        }
+
+        for (k = 0; k < n / 2; k++) {
+            for (i = k; i < n - k; i++) {
+                arr[k][i] = k + parseInt(l);
+                arr[i][n - 1 - k] = k + parseInt(l);
+                arr[n - 1 - i][k] = k + parseInt(l);
+                arr[n - 1 - k][n - 1 - i] = k + parseInt(l);
+            }
+        }
+
+        Display_mass(arr, block, n);
+    }
+
+    function Create_mass(row, col) {
+        var arr = [];
+        for (i = 0; i < row; i++) {
+            arr[i] = []
+            for (j = 0; j < col; j++) {
+                arr[i][j] = null;
+            }
+        }
+        return arr;
+    }
+
+    function Display_mass(name_arr, block, n) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                var item = document.createElement('input');
+                item.id = item.name = 'm_' + i + '_' + j;
+                item.style.width = 100 / n + "%";
+                item.innerHTML = "" + name_arr[i][j];
+                block.appendChild(item);
+            }
+        }
+    }
+</script>
+</body>
+</html>

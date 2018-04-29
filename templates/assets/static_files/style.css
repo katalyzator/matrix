@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    font-family: Arial;
+    background: #E9EAED;
+}
+
+#matrix {
+    background: #22225E;
+    display: block;
+    clear: both;
+    padding: 20px;
+    overflow: hidden;
+}
+
+#matrix label {
+    width: 30%;
+    float: left;
+    display: block;
+    font-size: 16px;
+    line-height: 40px;
+    padding: 0 0.5em;
+    box-sizing: border-box;
+    color: white;
+}
+
+#matrix input {
+    width: 70%;
+    float: right;
+    padding: 0 0.5em;
+    box-sizing: border-box;
+    background: #fefefe;
+    border: solid 1px #1137A7;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.1s;
+    line-height: 40px;
+    font-size: 22px;
+}
+
+#matrix input:focus {
+    background: white;
+}
+
+#matrix input[type="button"] {
+    width: 100%;
+    clear: both;
+    background: #B543A0;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #c35eb1;
+    box-shadow: 0px 4px 0px #200c1c;
+    outline: none;
+}
+
+#matrix input[type="button"]:active {
+    box-shadow: 0px 1px 0px #200c1c;
+    position: relative;
+    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
+}
+
+#matrix hr {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    padding: 10px 0;
+    border: none;
+}
+
+#result {
+    border: 1px solid #d2dbe8;
+    margin: 20px;
+    padding: 20px;
+    overflow: hidden;
+    clear: both;
+    background: #ffffff;
+}
+
+#result input {
+    float: left;
+    text-align: center;
+    padding: 10px 0;
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    font-size: 30px;
+    background: #1C1C47;
+    color: white;
+    border-radius: 5px;
+}
+
+#result input:hover {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-animation: rotate 4s infinite linear;
+    animation: rotate 4s infinite linear;
+    cursor: move;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
+        background: #5891E0;
+    }
+}
+
+@keyframes rotate {
+    100% {
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
+        background: #5891E0;
+    }
+}
