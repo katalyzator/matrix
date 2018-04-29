@@ -10,9 +10,6 @@
 <body>
 <div id="matrix">
     <form>
-        <label for="min">(K):</label>
-        <input type="text" name="min" id="min" placeholder="0" value=""/>
-        <hr/>
         <label for="size">(N):</label>
         <input type="text" name="size" id="size" placeholder="5" value=""/>
         <hr/>
@@ -22,7 +19,8 @@
 
 </div>
 <div id="result">
-    <form id="matrix_id">
+    <form id="matrix_id" action="{% url 'index_view' %}" method="post" data-type="{% url 'index_view' %}">
+
 
     </form>
 </div>
@@ -32,7 +30,7 @@
         crossorigin="anonymous"></script>
 <script>
     function Matrix() {
-        var l = document.getElementById('min').value || 3;
+        var l = document.getElementById('size').value || 3;
         var n = document.getElementById('size').value || 3;
         var block = document.getElementById('matrix_id');
         var arr = Create_mass(n, n);
@@ -51,6 +49,12 @@
         }
 
         Display_mass(arr, block, n);
+        var hiden_input = document.createElement("input");
+        hiden_input.type = 'hidden';
+        hiden_input.name = 'row_length';
+        hiden_input.value = l.toString();
+
+        block.append(hiden_input);
     }
 
     function Create_mass(row, col) {
@@ -74,7 +78,45 @@
                 block.appendChild(item);
             }
         }
+
+        var input_form = document.createElement("input");
+        input_form.type = "submit";
+        input_form.value = "Вычислить детерминант";
+        input_form.className = "form-button"; // set the CSS class
+        block.append(input_form);
+
+
+
     }
+</script>
+
+<script>
+    $('#matrix_id').each(function (i, obj) {
+        $(obj).submit(function (event) {
+            event.preventDefault();
+            var that = this;
+
+            $.ajax({
+                method: 'POST',
+                dataType: 'HTML',
+                data:$(that).serialize(),
+                url: $(that).attr('data-type'),
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    var input_form = document.createElement("input");
+                    input_form.type = "text";
+                    input_form.value = "det=" + data.result;
+                    input_form.className = "form-button"; // set the CSS class
+                    var block = document.getElementById('matrix_id');
+                    block.append(input_form);
+                },
+                error: function () {
+                    console.error('Error to send requet!');
+                }
+            });
+        })
+    });
 </script>
 </body>
 </html>

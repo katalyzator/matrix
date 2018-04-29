@@ -106,18 +106,18 @@ body {
     cursor: move;
 }
 
-@-webkit-keyframes rotate {
-    100% {
-        -webkit-transform: rotateY(360deg);
-        transform: rotateY(360deg);
-        background: #5891E0;
-    }
-}
+/*@-webkit-keyframes rotate {*/
+    /*100% {*/
+        /*-webkit-transform: rotateY(360deg);*/
+        /*transform: rotateY(360deg);*/
+        /*background: #5891E0;*/
+    /*}*/
+/*}*/
 
-@keyframes rotate {
-    100% {
-        -webkit-transform: rotateY(360deg);
-        transform: rotateY(360deg);
-        background: #5891E0;
-    }
-}
+/*@keyframes rotate {*/
+    /*100% {*/
+        /*-webkit-transform: rotateY(360deg);*/
+        /*transform: rotateY(360deg);*/
+        /*background: #5891E0;*/
+    /*}*/
+/*}*/
