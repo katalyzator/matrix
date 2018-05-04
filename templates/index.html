@@ -1,84 +1,113 @@
-<script>
-    function generate() {
+{% extends 'base.html' %}
 
+{% load staticfiles %}
 
+{% block content %}
+    <!-- banner-bottom -->
+    <div id="about" class="banner-bottom">
+        <div class="container">
+            <div class="col-md-7 w3_agileits_banner_bottom_left">
+                <img src="{% static "images/1.jpg" %}" alt=" " class="img-responsive"/>
+            </div>
+            <div class="col-md-3 w3_agileits_banner_bottom_right">
+                <div class="w3_agileits_banner_bottom_right_pos">
+                    <h3>About Us</h3>
+                    <h4>best theme for education</h4>
+                    <p>Aenean sed lacinia tellus, ut vulputate nisi. Mauris mollis metus sit amet
+                        imperdiet egestas. Vivamus malesuada enim.</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //banner-bottom -->
+    <!-- banner-text -->
+    <div class="banner-text w3-agile-banner-text">
+        <div class="container">
+            <h3>Education is the most powerful weapon which you can use to change the world</h3>
+        </div>
+    </div>
+    <!-- //banner-text -->
+    <!-- services -->
+    <div class="services" id="services">
+        <div class="container">
+            <h3 class="wthree_head"><i class="fa fa-book" aria-hidden="true"></i><span>Graduate</span>Special Services
+            </h3>
+            <div class="agileinfo_services_grids">
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Qualified Staffs</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>01.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Career Growth</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>02.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Sports & Events</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>03.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Useful Syllabus</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>04.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Award Winning</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>05.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="col-md-4 agileinfo_services_grid">
+                    <div class="agileinfo_services_grid_left">
+                        <h4>Research Programs</h4>
+                    </div>
+                    <div class="agileinfo_services_grid_right">
+                        <h4>06.</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>Aliquam ex orci, dapibus eu facilisis non, scelerisque id nisl.
+                        Praesent at tincidunt nisi. Aliquam molestie sem a purus pharetra.</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!-- //services -->
+    <!-- team -->
+    <div class="team">
+    </div>
+    <!-- //team -->
 
-        var rowCount = document.getElementById('rowCount').value;
-        {#	var colCount = document.getElementById('colCount').value;#}
-        var matrix_form = document.createElement('form');
-        var tbl = document.createElement('table');
-        {#	var tbl2 = document.createElement('table');#}
-        tbl.insertRow(-1);
-        {#	tbl2.insertRow(-1);#}
-        for (var j = 0; j <= rowCount; j++)    tbl.tBodies[0].rows[0].insertCell(-1).innerHTML = j || ' ';
-
-        {#	tbl2.tBodies[0].rows[0].insertCell(-1).innerHTML = 'B'||' ';	#}
-        {#		#}
-        {#	for (var i=1; i<=rowCount; i++)#}
-        {#	{#}
-        {#		tbl2.insertRow(-1).insertCell(-1).innerHTML = i;#}
-        {#		for (var j=1; j<=1; j++)	#}
-        {#		{#}
-        {#			var input = document.createElement('input');#}
-        {#			input.id=input.name='l_'+i+'_'+j;#}
-        {#			input.size = "5";#}
-        {#			tbl2.tBodies[0].rows[i].insertCell(-1).appendChild(input);#}
-        {#		}#}
-        {#	}#}
-
-        for (var i = 1; i <= rowCount; i++) {
-            tbl.insertRow(-1).insertCell(-1).innerHTML = i;
-            for (var j = 1; j <= rowCount; j++) {
-                var input = document.createElement('input');
-                input.id = input.name = 'm_' + i + '_' + j;
-                input.size = "5";
-                tbl.tBodies[0].rows[i].insertCell(-1).appendChild(input);
-            }
-        }
-
-
-
-        matrix_form.appendChild(tbl);
-        matrix_form.method = 'POST';
-        matrix_form.action = '{% url 'index_view' %}';
-        matrix_form.className = 'matrix-form';
-
-        var input_form = document.createElement("input");
-        input_form.type = "submit";
-        input_form.value = "calculate det";
-        input_form.className = "css-class-name"; // set the CSS class
-        matrix_form.append(input_form); // put it into the DOM
-        document.body.append(matrix_form);
-        var hiden_input = document.createElement("input");
-        hiden_input.type = 'hidden';
-        hiden_input.name = 'row_length';
-        hiden_input.value = rowCount.toString();
-        matrix_form.append(hiden_input);
-
-        {#        matrix_form.submit();#}
-        {#        tbl.append('<input type="submit" name="field_name" value="submit" />');#}
-        {#	document.body.appendChild(tbl2);#}
-
-
-    }
-
-
-
-    function manipulate() {
-        generate();
-    }
-
-
-</script>
-<input id='rowCount' type='text' value='4'/><br/>
-{#colCount: <input id='colCount' type='text' value='5' /><br />#}
-<button onclick="manipulate()" style="top: 50px;">generate</button>
-<br>
-
-
-
-<style type="text/css">
-    table {
-        float: left;
-    }
-</style>
+{% endblock %}

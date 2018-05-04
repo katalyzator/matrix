@@ -1,121 +1,148 @@
-﻿{% load staticfiles %}
+﻿{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-<div id="matrix">
-    <form>
-        <label for="min">(K):</label>
-        <input type="text" name="min" id="min" placeholder="0" value=""/>
-        <hr/>
-        <label for="size">(N):</label>
-        <input type="text" name="size" id="size" placeholder="5" value=""/>
-        <hr/>
-        <input type="button" onclick="Matrix()" value="Сгенерировать матрицу"/>
-    </form>
+{% load staticfiles %}
+
+{% block content %}
+    <div id="matrix">
+        <form>
+            <label for="min">(K):</label>
+            <input type="text" name="min" id="min" placeholder="0" value=""/>
+            <hr/>
+            <label for="size">(N):</label>
+            <input type="text" name="size" id="size" placeholder="5" value=""/>
+            <hr/>
+            <input type="button" onclick="Matrix()" value="Сгенерировать матрицу"/>
+        </form>
 
 
-</div>
-<div id="result">
-    <form id="matrix_id" action="{% url 'index_view' %}" method="post" data-type="{% url 'index_view' %}">
+    </div>
+    <div id="result">
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="matrix_id" action="{% url 'index_view' %}" method="post"
+                              data-type="{% url 'index_view' %}">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result">
+
+            </div>
+
+        </div>
 
 
-    </form>
-</div>
-<script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script>
-    function Matrix() {
-        var l = document.getElementById('min').value || 3;
-        var n = document.getElementById('size').value || 3;
-        var block = document.getElementById('matrix_id');
-        var arr = Create_mass(n, l);
+    </div>
 
-        if (block.hasChildNodes()) {
-            block.innerHTML = "";
-        }
+{% endblock %}
+{% block custom_scripts %}
+    <script>
+        function Matrix() {
+            var l = document.getElementById('min').value || 3;
+            var n = document.getElementById('size').value || 3;
+            var block = document.getElementById('matrix_id');
+            var arr = Create_mass(n, l);
 
-
-        Display_mass(arr, block, n, l);
-        var hiden_input = document.createElement("input");
-        var hiden_input1 = document.createElement(("input"));
-
-        hiden_input.type = 'hidden';
-        hiden_input.name = 'row_length';
-        hiden_input.value = l.toString();
-        hiden_input1.type = 'hidden';
-        hiden_input1.name = 'col_length';
-        hiden_input1.value = n.toString();
-        block.append(hiden_input1);
-        block.append(hiden_input);
-    }
-
-    function Create_mass(row, col) {
-        var arr = [];
-        for (i = 0; i < row; i++) {
-            arr[i] = [];
-            for (j = 0; j < col; j++) {
-                arr[i][j] = null;
+            if (block.hasChildNodes()) {
+                block.innerHTML = "";
             }
+
+
+            Display_mass(arr, block, n, l);
+            var hiden_input = document.createElement("input");
+            var hiden_input1 = document.createElement(("input"));
+
+            hiden_input.type = 'hidden';
+            hiden_input.name = 'row_length';
+            hiden_input.value = l.toString();
+            hiden_input1.type = 'hidden';
+            hiden_input1.name = 'col_length';
+            hiden_input1.value = n.toString();
+            block.append(hiden_input1);
+            block.append(hiden_input);
+
+            $('#myModal').modal('show');
         }
-        return arr;
-    }
 
-    function Display_mass(name_arr, block, l, n) {
-        for (i = 0; i < l; i++) {
-            for (j = 0; j < n; j++) {
-                var item = document.createElement('input');
-                item.id = item.name = 'm_' + i + '_' + j;
-                item.style.width = 100 / n + "%";
-                item.innerHTML = "" + name_arr[i][j];
-                block.appendChild(item);
-            }
-        }
-
-        var input_form = document.createElement("input");
-        input_form.type = "submit";
-        input_form.value = "Вычислить детерминант";
-        input_form.className = "form-button"; // set the CSS class
-        block.append(input_form);
-
-
-    }
-</script>
-
-<script>
-    $('#matrix_id').each(function (i, obj) {
-        $(obj).submit(function (event) {
-            event.preventDefault();
-            var that = this;
-
-            $.ajax({
-                method: 'POST',
-                dataType: 'HTML',
-                data: $(that).serialize(),
-                url: $(that).attr('data-type'),
-                success: function (response) {
-                    var data = JSON.parse(response);
-
-                    var input_form = document.createElement("input");
-                    input_form.type = "text";
-                    input_form.value = "det=" + data.result;
-                    input_form.className = "form-button"; // set the CSS class
-                    var block = document.getElementById('matrix_id');
-                    block.append(input_form);
-                },
-                error: function () {
-                    console.error('Error to send requet!');
+        function Create_mass(row, col) {
+            var arr = [];
+            for (i = 0; i < row; i++) {
+                arr[i] = [];
+                for (j = 0; j < col; j++) {
+                    arr[i][j] = null;
                 }
-            });
-        })
-    });
-</script>
-</body>
-</html>
+            }
+            return arr;
+        }
+
+        function Display_mass(name_arr, block, l, n) {
+            for (i = 0; i < l; i++) {
+                for (j = 0; j < n; j++) {
+                    var item = document.createElement('input');
+                    item.id = item.name = 'm_' + i + '_' + j;
+                    item.style.width = 100 / n + "%";
+                    item.innerHTML = "" + name_arr[i][j];
+                    block.appendChild(item);
+                }
+            }
+
+            var input_form = document.createElement("input");
+            var reset_button = document.createElement('input')
+            reset_button.type = 'reset';
+            reset_button.value = 'Reset the form';
+            input_form.type = "submit";
+            input_form.value = "Calculate";
+            input_form.className = "form-button"; // set the CSS class
+            block.append(input_form);
+            block.append(reset_button);
+
+
+        }
+    </script>
+
+    <script>
+        $('#matrix_id').each(function (i, obj) {
+            $(obj).submit(function (event) {
+                event.preventDefault();
+                var that = this;
+
+                $.ajax({
+                    method: 'POST',
+                    dataType: 'HTML',
+                    data: $(that).serialize(),
+                    url: $(that).attr('data-type'),
+                    success: function (response) {
+                        $('.result').html(response);
+                        {#var data = JSON.parse(response);#}
+                        {##}
+                        {#var input_form = document.createElement("inpu");#}
+                        {#input_form.type = "text";#}
+                        {#input_form.value = "det=" + data.result;#}
+                        {#input_form.className = "form-button"; // set the CSS class#}
+                        {#var block = document.getElementById('matrix_id');#}
+                        {#block.append(input_form);#}
+                    },
+                    error: function () {
+                        console.error('Error to send requet!');
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}

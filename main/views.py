@@ -22,11 +22,11 @@ def power_iteration(A):
 
     v = np.ones(d) / np.sqrt(d)
     ev = eigenvalue(A, v)
-
+    k = 0
     while True:
         Av = A.dot(v)
         v_new = Av / np.linalg.norm(Av)
-
+        k = k + 1
         ev_new = eigenvalue(A, v_new)
         if np.abs(ev - ev_new) < 0.01:
             break
@@ -34,7 +34,7 @@ def power_iteration(A):
         v = v_new
         ev = ev_new
 
-    return ev_new, v_new
+    return ev_new, k, v_new
 
 
 # def power_method(mat, start, maxit):
@@ -73,26 +73,35 @@ def index_view(request):
             matrix = []
             row_count = request.POST.get('row_length')
             col_count = request.POST.get('col_length')
-
-            for i in range(0, int(row_count)):
-                for j in range(0, int(col_count)):
-                    print request.POST.get('m_' + str(i) + '_' + str(j))
+            # for i in range(0, int(row_count)):
+            #     for j in range(0, int(col_count)):
+            #         print request.POST.get('m_' + str(i) + '_' + str(j))
 
             for i in range(0, int(col_count)):
                 matrix.append(
                     [int(request.POST.get('m_' + str(i) + '_' + str(j))) for j in range(0, int(row_count))], )
             X = np.array(matrix)
-            print matrix
-            result = np.linalg.det(matrix)
-            print power_iteration(X)
-            j = complex(0, 1)
-            nbs = np.random.normal(0, 1, (row_count, 1)) \
-                  + np.random.normal(0, 1, (row_count, 1)) * j
-            rndvec = np.matrix(nbs)
-            # eigmax = power_method(X, rndvec, 10)
-            # print check(X, eigmax)
 
-            return JsonResponse(dict(result=result))
+            # print matrix
+            result = np.linalg.det(matrix)
+
+            if result == 0:
+                context = {
+                    'result': "No solution"
+                }
+                print context
+            else:
+                result_of_power_iteration = power_iteration(X)
+                j = complex(0, 1)
+                # nbs = np.random.normal(0, 1, (row_count, 1)) + np.random.normal(0, 1, (row_count, 1)) * j
+                # rndvec = np.matrix(nbs)
+                # eigmax = power_method(X, rndvec, 10)
+                # print check(X, eigmax)
+                context = {
+                    'result': result_of_power_iteration
+                }
+                print context
+            return render(request, 'result.html', context)
 
         except Exception as exc:
 

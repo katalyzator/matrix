@@ -7,8 +7,8 @@ from matrix import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^calculate$', index_view, name='index_view'),
-    url(r'^$', matrix_view, name='matrix_view')
+    url(r'^power_method/$', matrix_view, name='matrix_view'),
+    url(r'^$', index_view, name='index_view')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
