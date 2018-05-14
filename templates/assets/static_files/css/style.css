@@ -2197,3 +2197,12 @@ a.w3_agile_vimeo:hover {
         padding: 0;
     }
 }
+
+.agileits-w3layouts_wrapper_home h2 {
+    color: #ff0101 !important;
+    font-size: 32px;
+}
+
+.popEffect span {
+    color: #ff0101 !important;
+}
